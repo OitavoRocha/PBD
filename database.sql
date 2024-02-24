@@ -33,10 +33,20 @@ CREATE TABLE musicfind.ParticipaMusico (
     PRIMARY KEY (idEvento, idUsuario)
 );
 
+CREATE TABLE musicfind.Banda (
+    idBanda INT NOT NULL,
+    statusBanda VARCHAR(10),
+    genero VARCHAR(10),
+    nome VARCHAR(50),
+    cache FLOAT,
+    rating FLOAT CHECK (rating >= 0 AND rating <= 5),
+    PRIMARY KEY (idBanda)
+);
+
 CREATE TABLE musicfind.ParticipaBanda (
     idEvento INT references musicfind.Evento(idEvento),
-    idBanda INT references musicfind.Usuario(idBanda),
-    PRIMARY KEY (idEvento, idUsuario)
+    idBanda INT references musicfind.Banda(idBanda),
+    PRIMARY KEY (idEvento, idBanda)
 );
 
 CREATE TABLE musicfind.LocalEvento (
@@ -64,19 +74,9 @@ CREATE TABLE musicfind.GrandePorte (
 );
 
 CREATE TABLE musicfind.Em (
-    enderecoLocal int references musicfind.LocalEvento(endereco),
+    enderecoLocal varchar(15) references musicfind.LocalEvento(endereco),
     idGrandePorte int references musicfind.GrandePorte(idEvento),
     PRIMARY KEY (enderecoLocal, idGrandePorte)
-);
-
-CREATE TABLE musicfind.Banda (
-    idBanda INT NOT NULL,
-    statusBanda VARCHAR(10),
-    genero VARCHAR(10),
-    nome VARCHAR(50),
-    cache FLOAT,
-    rating FLOAT CHECK (rating >= 0 AND rating <= 5),
-    PRIMARY KEY (idBanda)
 );
 
 CREATE TABLE musicfind.HistoricoBanda (
@@ -107,7 +107,7 @@ CREATE TABLE musicfind.PequenoPorte (
     idEvento INT,
     PRIMARY KEY (idEvento),
     FOREIGN KEY (idEvento) REFERENCES musicfind.Evento(idEvento)
-)
+);
 
 CREATE TABLE musicfind.Cria (
     idEventManager INT,
