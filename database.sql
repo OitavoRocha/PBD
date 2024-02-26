@@ -2,12 +2,12 @@ CREATE TABLE musicfind.Usuario (
     idUsuario INT PRIMARY KEY,
     contato VARCHAR(11),
     rating FLOAT CHECK (rating <= 5.0 AND rating >= 0.0),
-    nome VARCHAR(15)
+    nome VARCHAR(30)
 );
 
 CREATE TABLE musicfind.Musico (
-    genero VARCHAR(15),
-    instrumento VARCHAR(15),
+    genero VARCHAR(30),
+    instrumento VARCHAR(30),
     anos_experiencia INT,
     cache FLOAT,
     idUsuario INT PRIMARY KEY references musicfind.Usuario(idUsuario)
@@ -20,11 +20,11 @@ CREATE TABLE musicfind.EventManager (
 
 CREATE TABLE musicfind.Evento (
     idEvento INT PRIMARY KEY,
-    nome VARCHAR(15),
+    nome VARCHAR(30),
     capacidade INT,
     data DATE,
-    status_evento VARCHAR(15),
-    foco VARCHAR(15)
+    status_evento VARCHAR(30),
+    foco VARCHAR(30)
 );
 
 CREATE TABLE musicfind.ParticipaMusico (
@@ -50,22 +50,22 @@ CREATE TABLE musicfind.ParticipaBanda (
 );
 
 CREATE TABLE musicfind.LocalEvento (
-    alvara VARCHAR(15),
+    alvara VARCHAR(30),
     lotacao_max INT,
-    endereco VARCHAR(15) PRIMARY KEY
+    endereco VARCHAR(30) PRIMARY KEY
 );
 
 CREATE TABLE musicfind.HistoricoMusico (
-    nomeEvento VARCHAR(15),
+    nomeEvento VARCHAR(30),                                         -- idEvento não seria melhor?
     idMusico INT references musicfind.Musico(idUsuario),
     avaliacao FLOAT CHECK (avaliacao >= 0 AND avaliacao <= 5),
-    PRIMARY KEY (idMusico)
-);
+    PRIMARY KEY (idMusico)                                          -- histórico musico não pode ter idmusico como chave primária
+);                                                                  -- pois um músico pode ter participado de vários eventos
 
 CREATE TABLE musicfind.Repertorio (
-    musica VARCHAR(15),
-    idMusico INT references musicfind.Musico(idUsuario),
-    PRIMARY KEY (idMusico)
+    musica VARCHAR(30),
+    idMusico INT references musicfind.Musico(idUsuario),            -- idmusico como chave primária não faz sentido
+    PRIMARY KEY (idMusico)                                          -- pois um músico pode ter várias músicas no repertório
 );
 
 CREATE TABLE musicfind.GrandePorte (
@@ -74,7 +74,7 @@ CREATE TABLE musicfind.GrandePorte (
 );
 
 CREATE TABLE musicfind.Em (
-    enderecoLocal varchar(15) references musicfind.LocalEvento(endereco),
+    enderecoLocal varchar(30) references musicfind.LocalEvento(endereco),
     idGrandePorte int references musicfind.GrandePorte(idEvento),
     PRIMARY KEY (enderecoLocal, idGrandePorte)
 );
