@@ -29,17 +29,19 @@ INSERT INTO musicfind.ParticipaBanda (idEvento, idBanda) VALUES
 (1, 1),
 (2, 2);
 
--- Inserção de histórico de músicos em eventos
-INSERT INTO musicfind.HistoricoMusico (idEvento, idMusico, avaliacao) VALUES
-(1, 1, 4.5),
-(2, 1, 4.0);
-
--- Inserção de histórico de bandas em eventos
-INSERT INTO musicfind.HistoricoBanda (idEvento, idBanda, avaliacao) VALUES
-(1, 1, 4.2),
-(2, 2, 4.5);
-
 -- Inserção de afiliações de músicos em bandas
 INSERT INTO musicfind.Afiliado (idMusico, idBanda) VALUES
 (1, 1),
 (1, 2);
+
+-- Inserção de repertórios de músicos
+INSERT INTO musicfind.RepertorioMusico VALUES 
+(1, 'Sweet Child O'' Mine'), 
+(1, 'November Rain'), 
+(2, 'Take Five');
+
+-- Inserção de repertórios de bandas
+INSERT INTO musicfind.RepertorioBanda VALUES 
+(1, 'Hallway to Hell'), 
+(2, 'Blue Rondo à la Turk'),
+(2, 'What a Wonderful World');

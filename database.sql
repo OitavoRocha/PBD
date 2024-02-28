@@ -47,20 +47,17 @@ CREATE TABLE musicfind.ParticipaBanda (
     PRIMARY KEY (idEvento, idBanda)
 );
 
-
-CREATE TABLE musicfind.HistoricoMusico (
-    idEvento INT,                                         
+CREATE TABLE musicfind.RepertorioMusico {
     idMusico INT references musicfind.Musico(idUsuario),
-    avaliacao FLOAT CHECK (avaliacao >= 0 AND avaliacao <= 5),
-    PRIMARY KEY (idEvento, idMusico)                                        
-);                                                                  
+    musica VARCHAR(50),
+    PRIMARY KEY (idMusico, musica)
+};
 
-CREATE TABLE musicfind.HistoricoBanda (
-    idEvento INT,
-    idBanda INT references musicfind.Banda(idBanda),
-    avaliacao FLOAT CHECK (avaliacao >= 0 AND avaliacao <= 5),
-    PRIMARY KEY (idEvento, idBanda)
-);
+CREATE TABLE musicfind.RepertorioBanda {
+    idBanda INT references musicfind.Musico(idBanda),
+    musica VARCHAR(50),
+    PRIMARY KEY (idBanda, musica)
+};
 
 CREATE TABLE musicfind.Afiliado (
     idMusico INT NOT NULL,
