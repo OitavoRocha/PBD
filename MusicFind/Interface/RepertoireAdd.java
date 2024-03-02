@@ -64,6 +64,7 @@ public class RepertoireAdd extends JFrame{
 
     private void addMusic() {
         // TODO: adicionar musica ao banco de dados
+        
         dispose();
     }
     

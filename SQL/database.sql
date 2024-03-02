@@ -1,8 +1,9 @@
 CREATE TABLE musicfind.Usuario (
-    idUsuario INT PRIMARY KEY,
+    idUsuario SERIAL PRIMARY KEY,
     contato VARCHAR(11),
     rating FLOAT CHECK (rating <= 5.0 AND rating >= 0.0),
-    nome VARCHAR(30),
+    username VARCHAR(30),
+    userpassword VARCHAR(30),
     tipo VARCHAR(30) CHECK (tipo = 'Musico' OR tipo = 'Usuario')
 );
 
@@ -32,13 +33,12 @@ CREATE TABLE musicfind.ParticipaMusico (
 );
 
 CREATE TABLE musicfind.Banda (
-    idBanda INT NOT NULL,
+    idBanda SERIAL PRIMARY KEY,
     statusBanda VARCHAR(10),
     genero VARCHAR(10),
     cache FLOAT,
     rating FLOAT CHECK (rating >= 0 AND rating <= 5),
     nome VARCHAR(50),
-    PRIMARY KEY (idBanda)
 );
 
 CREATE TABLE musicfind.ParticipaBanda (
@@ -47,17 +47,17 @@ CREATE TABLE musicfind.ParticipaBanda (
     PRIMARY KEY (idEvento, idBanda)
 );
 
-CREATE TABLE musicfind.RepertorioMusico {
+CREATE TABLE musicfind.RepertorioMusico (
     idMusico INT references musicfind.Musico(idUsuario),
     musica VARCHAR(50),
     PRIMARY KEY (idMusico, musica)
-};
+);
 
-CREATE TABLE musicfind.RepertorioBanda {
-    idBanda INT references musicfind.Musico(idBanda),
+CREATE TABLE musicfind.RepertorioBanda (
+    idBanda INT references musicfind.Banda(idBanda),
     musica VARCHAR(50),
     PRIMARY KEY (idBanda, musica)
-};
+);
 
 CREATE TABLE musicfind.Afiliado (
     idMusico INT NOT NULL,

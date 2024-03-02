@@ -1,7 +1,11 @@
 package MusicFind.Interface;
 
 import javax.swing.*;
+
+import MusicFind.src.database;
+
 import java.awt.*;
+import java.util.Arrays;
 
 public class Registration extends JFrame{
     private JButton registerButton;
@@ -156,7 +160,17 @@ public class Registration extends JFrame{
     }
 
     private void register() {
+        String username = usernameField.getText();
+        String userpassword = passwordField.getText();
+        String userpasswordConfirm = confirmPasswordField.getText();
+        if (!(userpassword.equals(userpasswordConfirm))) {
+            JOptionPane.showMessageDialog(this, "As senhas não coincidem", "Erro", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        JOptionPane.showMessageDialog(this, "Usuário registrado com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
         // TODO: lidar com a inserção no banco de dados
+        database.insertUser("teste", 0, username, userpassword, "Musico");
+        
         dispose();
         Home home = new Home();
     }

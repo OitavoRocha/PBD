@@ -14,6 +14,9 @@ public class App {
     static Event event;
 
     public static void main(String[] args) throws Exception {
+        if (!database.connectDataBase()){
+            return;
+        }
         login = new Login();
         //home = new Home();
         //search = new SearchPage();
