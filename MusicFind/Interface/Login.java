@@ -4,6 +4,9 @@ import java.awt.*;
 
 import javax.swing.*;
 
+import MusicFind.Interface.PreMade.ColorPalette;
+import MusicFind.Interface.PreMade.ImagePanel;
+
 public class Login extends JFrame {
     private JButton loginButton;
     private JButton registerButton;

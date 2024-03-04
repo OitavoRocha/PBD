@@ -1,4 +1,4 @@
-package MusicFind.Interface;
+package MusicFind.Interface.PreMade;
 
 import javax.swing.*;
 import java.awt.*;

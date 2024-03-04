@@ -1,4 +1,4 @@
-package MusicFind.Interface;
+package MusicFind.Interface.PreMade;
 
 import java.awt.Dimension;
 import java.awt.Graphics;

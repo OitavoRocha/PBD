@@ -12,12 +12,14 @@ public class App {
     static CreateBand createBand;
     static Band band;
     static Event event;
+    static Musician musician;
+    static NewUser newUser;
 
     public static void main(String[] args) throws Exception {
-        if (!database.connectDataBase()){
-            return;
-        }
-        login = new Login();
+        //if (!database.connectDataBase()){
+        //    return;
+        //}
+        //login = new Login();
         //home = new Home();
         //search = new SearchPage();
         //registration = new Registration();
@@ -26,5 +28,7 @@ public class App {
         //createBand = new CreateBand();
         //band = new Band();
         //event = new Event();
+        //musician = new Musician();
+        newUser = new NewUser();
     }
 }

@@ -3,6 +3,8 @@ package MusicFind.Interface;
 import java.awt.*;
 import javax.swing.*;
 
+import MusicFind.Interface.PreMade.ColorPalette;
+
 public class CreateEvent extends JFrame{
     static JPanel leftBar;
     static JButton homeButton;

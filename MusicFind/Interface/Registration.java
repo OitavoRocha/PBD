@@ -2,6 +2,8 @@ package MusicFind.Interface;
 
 import javax.swing.*;
 
+import MusicFind.Interface.PreMade.ColorPalette;
+import MusicFind.Interface.PreMade.ImagePanel;
 import MusicFind.src.database;
 
 import java.awt.*;
@@ -171,6 +173,7 @@ public class Registration extends JFrame{
         // TODO: lidar com a inserção no banco de dados
         database.insertUser("teste", 0, username, userpassword, "Musico");
         
+        // TODO: passar para a pagina de newUser para colocar seus dados
         dispose();
         Home home = new Home();
     }

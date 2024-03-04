@@ -3,6 +3,8 @@ package MusicFind.Interface;
 import javax.swing.*;
 import javax.swing.border.Border;
 
+import MusicFind.Interface.PreMade.ColorPalette;
+
 import java.awt.*;
 
 public class Band extends JFrame{

@@ -1,12 +1,13 @@
 package MusicFind.Interface;
 
+import javax.sound.midi.MidiDevice.Info;
 import javax.swing.*;
 
 import MusicFind.Interface.PreMade.ColorPalette;
 
 import java.awt.*;
 
-public class Event extends JFrame {
+public class Musician extends JFrame {
     static JPanel leftBar;
     static JButton homeButton;
     static JButton searchButton;
@@ -21,17 +22,21 @@ public class Event extends JFrame {
     static JLabel genreLabel;
     static JPanel ratingPanel;
     static JLabel ratingLabel;
-    static JPanel participantsPanel;
-    static JTextArea participantsInfo;
     static JPanel infoPanel;
-    static JTextArea info;
-    
-    public Event() {
+    static JTextArea musicianInfo;
+    static JPanel repPanel;
+    static JTextArea repertoireArea;
+
+
+    public Musician() {
         super("MusicFind");
         initComponents();
+        setInfo();
     }
 
+    
     private void initComponents() {
+        
         // LEFT BAR COMPONENTS
         leftBar = new JPanel();
         leftBar.setBackground(ColorPalette.JET.getColor());
@@ -91,75 +96,100 @@ public class Event extends JFrame {
         header = new JPanel();
         header.setBackground(ColorPalette.EERIE_B.getColor());
         header.setSize(new Dimension(850, 200));
-        header.setLayout(new FlowLayout(FlowLayout.LEFT, 450, 10));
+        header.setLayout(new FlowLayout(FlowLayout.LEFT, 100, 10));
         
         profilePanel = new JPanel();
         profilePanel.setBackground(ColorPalette.EERIE_B.getColor());
         profilePanel.setPreferredSize(new Dimension(200, 200));
         profilePanel.setLayout(new BoxLayout(profilePanel, BoxLayout.Y_AXIS));
 
-        profileLabel = new JLabel("Evento");
+        profileLabel = new JLabel("Perfil");
         profileLabel.setForeground(ColorPalette.N_WHITE.getColor());
-        profileLabel.setFont(new Font("Arial", Font.BOLD, 40));
+        profileLabel.setFont(new Font("Arial", Font.BOLD, 26));
         profileLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
 
-        //profilePanel.add(Box.createRigidArea(new Dimension(0, 100)));
-        profilePanel.add(profileLabel, BorderLayout.WEST);
+        profileInfo = new JTextArea();
+        profileInfo.setBackground(ColorPalette.EERIE_B.getColor());
+        profileInfo.setForeground(ColorPalette.N_WHITE.getColor());
+        profileInfo.setFont(new Font("Arial", Font.PLAIN, 13));
+        profileInfo.setText("nome: \nemail: \nlocalização: \n");
+        profileInfo.setAlignmentX(Component.LEFT_ALIGNMENT);
+        profileInfo.setLineWrap(true);
+        profileInfo.setWrapStyleWord(true);
+        profileInfo.setEditable(false);
+        profileInfo.setBorder(BorderFactory.createEmptyBorder(20, 0, 0, 0));
+
+        profilePanel.add(profileLabel);
+        profilePanel.add(profileInfo);
 
         genrePanel = new JPanel();
         genrePanel.setBackground(ColorPalette.EERIE_B.getColor());
         genrePanel.setPreferredSize(new Dimension(200, 200));
-        
+
         genreLabel = new JLabel("Gênero");
         genreLabel.setForeground(ColorPalette.N_WHITE.getColor());
-        genreLabel.setFont(new Font("Arial", Font.BOLD, 26));
-        genreLabel.setAlignmentX(Component.RIGHT_ALIGNMENT);
-        
+        genreLabel.setFont(new Font("Arial", Font.BOLD, 40));
+        genreLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        genrePanel.add(Box.createRigidArea(new Dimension(0, 100)));
         genrePanel.add(genreLabel);
+        
+        ratingPanel = new JPanel();
+        ratingPanel.setBackground(ColorPalette.EERIE_B.getColor());
+        ratingPanel.setPreferredSize(new Dimension(200, 200));
+
+        ratingLabel = new JLabel("5.0");
+        ratingLabel.setForeground(ColorPalette.N_WHITE.getColor());
+        ratingLabel.setFont(new Font("Arial", Font.BOLD, 40));
+        ratingLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        ratingPanel.add(Box.createRigidArea(new Dimension(0, 100)));
+        ratingPanel.add(ratingLabel);
 
         header.add(profilePanel, BorderLayout.WEST);
-        header.add(genrePanel, BorderLayout.EAST);
+        header.add(genrePanel, BorderLayout.CENTER);
+        header.add(ratingPanel, BorderLayout.EAST);
 
         infoPanel = new JPanel();
         infoPanel.setBackground(ColorPalette.EERIE_B.getColor());
         infoPanel.setPreferredSize(new Dimension(850, 250));
-        infoPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 20, 30));
-        infoPanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 10));
+        infoPanel.setLayout(new BoxLayout(infoPanel, BoxLayout.X_AXIS));
 
-        info = new JTextArea();
-        info.setBackground(ColorPalette.EERIE_B.getColor());
-        info.setForeground(ColorPalette.N_WHITE.getColor());
-        info.setPreferredSize(new Dimension(800, 200));
-        info.setFont(new Font("Arial", Font.PLAIN, 16));
-        info.setText("info");
-        info.setAlignmentX(Component.LEFT_ALIGNMENT);
-        info.setLineWrap(true);
-        info.setWrapStyleWord(true);
-        info.setEditable(false);
+        musicianInfo = new JTextArea();
+        musicianInfo.setBackground(ColorPalette.EERIE_B.getColor());
+        musicianInfo.setForeground(ColorPalette.N_WHITE.getColor());
+        musicianInfo.setPreferredSize(new Dimension(700, 200));
+        musicianInfo.setFont(new Font("Arial", Font.PLAIN, 16));
+        musicianInfo.setText("dados do musico");
+        musicianInfo.setAlignmentX(Component.LEFT_ALIGNMENT);
+        musicianInfo.setLineWrap(true);
+        musicianInfo.setWrapStyleWord(true);
+        musicianInfo.setEditable(false);
+        musicianInfo.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
 
-        infoPanel.add(info);
-
-        participantsPanel = new JPanel();
-        participantsPanel.setBackground(ColorPalette.EERIE_B.getColor());
-        participantsPanel.setPreferredSize(new Dimension(850, 250));
-
-        participantsInfo = new JTextArea();
-        participantsInfo.setBackground(ColorPalette.EERIE_B.getColor());
-        participantsInfo.setForeground(ColorPalette.N_WHITE.getColor());
-        participantsInfo.setPreferredSize(new Dimension(800, 200));
-        participantsInfo.setFont(new Font("Arial", Font.PLAIN, 16));
-        participantsInfo.setText("participantes");
-        participantsInfo.setAlignmentX(Component.LEFT_ALIGNMENT);
-        participantsInfo.setLineWrap(true);
-        participantsInfo.setWrapStyleWord(true);
-        participantsInfo.setEditable(false);
+        infoPanel.add(musicianInfo);
         
-        participantsPanel.add(participantsInfo);
+        repPanel = new JPanel();
+        repPanel.setBackground(ColorPalette.EERIE_B.getColor());
+        repPanel.setPreferredSize(new Dimension(850, 250));
+        repPanel.setLayout(new BoxLayout(repPanel, BoxLayout.X_AXIS));
 
+        repertoireArea = new JTextArea();
+        repertoireArea.setBackground(ColorPalette.EERIE_B.getColor());
+        repertoireArea.setForeground(ColorPalette.N_WHITE.getColor());
+        repertoireArea.setPreferredSize(new Dimension(300, 200));
+        repertoireArea.setFont(new Font("Arial", Font.PLAIN, 16));
+        repertoireArea.setText("repertorio");
+        repertoireArea.setAlignmentX(Component.LEFT_ALIGNMENT);
+        repertoireArea.setLineWrap(true);
+        repertoireArea.setWrapStyleWord(true);
+        repertoireArea.setEditable(false);
+
+        repPanel.add(repertoireArea);
 
         mainPanel.add(header);
         mainPanel.add(infoPanel);
-        mainPanel.add(participantsPanel);
+        mainPanel.add(repPanel);
         
         getContentPane().add(leftBar, BorderLayout.WEST);
         getContentPane().add(mainPanel, BorderLayout.CENTER);
@@ -172,12 +202,12 @@ public class Event extends JFrame {
         setLocationRelativeTo(null);
         setVisible(true);
     }
-
+    
     private void home() {
         dispose();
         Home home = new Home();
     }
-
+    
     private void createBand() {
         dispose();
         CreateBand createBand = new CreateBand();
@@ -192,5 +222,11 @@ public class Event extends JFrame {
         dispose();
         SearchPage search = new SearchPage();
     }
-    
+
+    private void setInfo() {
+        // TODO: pegar os valores do usuário logado
+
+    }
+
 }
+

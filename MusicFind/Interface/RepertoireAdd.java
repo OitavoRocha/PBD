@@ -2,6 +2,8 @@ package MusicFind.Interface;
 
 import javax.swing.*;
 
+import MusicFind.Interface.PreMade.ColorPalette;
+
 import java.awt.*;
 
 public class RepertoireAdd extends JFrame{
