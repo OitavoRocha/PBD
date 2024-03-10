@@ -38,7 +38,7 @@ CREATE TABLE musicfind.Banda (
     genero VARCHAR(10),
     cache FLOAT,
     rating FLOAT CHECK (rating >= 0 AND rating <= 5),
-    nome VARCHAR(50),
+    nome VARCHAR(50)
 );
 
 CREATE TABLE musicfind.ParticipaBanda (
