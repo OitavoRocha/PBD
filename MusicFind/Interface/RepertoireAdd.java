@@ -3,6 +3,7 @@ package MusicFind.Interface;
 import javax.swing.*;
 
 import MusicFind.Interface.PreMade.ColorPalette;
+import MusicFind.src.*;
 
 import java.awt.*;
 
@@ -10,9 +11,24 @@ public class RepertoireAdd extends JFrame{
     static JLabel title;
     static JTextField musicName;
     static JButton addMusic;
+
+    private int flag;
+
+    private database database;
+    private User usuario;
+    private int idBanda;
     
-    public RepertoireAdd() {
+    public RepertoireAdd(int flag, database db, User user) {
         super("MusicFind");
+        database = db;
+        usuario = user;
+        initComponents();
+    }
+
+    public RepertoireAdd(int flag, database db, int id) {
+        super("MusicFind");
+        database = db;
+        idBanda = id;
         initComponents();
     }
 
@@ -65,7 +81,12 @@ public class RepertoireAdd extends JFrame{
     }
 
     private void addMusic() {
-        // TODO: adicionar musica ao banco de dados
+        String musica = musicName.getText();
+        if (flag == 0) {
+            database.insertRepertoireBanda(idBanda, musica);
+        } else {
+            database.insertRepertoireMusico(usuario.getId(), musica);
+        }
         
         dispose();
     }

@@ -26,22 +26,26 @@ public class database {
         return true;
     }
 
-    public static boolean insertUser(String contato, float rating, String username, String userpassword, String tipo){
+    public boolean insertUser(User usuario){
 
         String sql = "INSERT INTO usuario (contato, rating, username, userpassword, tipo) VALUES (?, ?, ?, ?, ?)";
 
         try {
             PreparedStatement statement = con.prepareStatement(sql);
-            statement.setString(1, contato);
-            statement.setFloat(2, rating);
-            statement.setString(3, username);
-            statement.setString(4, userpassword);
-            statement.setString(5, tipo);
+            statement.setString(1, usuario.contato);
+            statement.setFloat(2, usuario.rating);
+            statement.setString(3, usuario.username);
+            statement.setString(4, usuario.userpassword);
+            statement.setString(5, usuario.tipo);
             // Executa a consulta de inserção
             int rowsInserted = statement.executeUpdate();
             // Verifica se a inserção foi bem-sucedida (pelo menos uma linha afetada)
             if (rowsInserted > 0) {
-                System.out.println("Novo usuário inserido com sucesso.");
+                if (usuario.tipo.equals("Musico")){
+                    insertMusician(usuario);
+                } else {
+                    System.out.println("Novo usuário inserido com sucesso.");
+                }
                 return true;
             }
         } catch (SQLException e) {
@@ -50,17 +54,17 @@ public class database {
         return false;
     }
 
-    public static boolean insertMusician(String genero, String instrumento, int anos_experiencia, float cache, int id_usuario){
+    public static boolean insertMusician(User usuario){
 
         String sql = "INSERT INTO musico (genero, instrumento, anos_experiencia, cache, idusuario) VALUES (?, ?, ?, ?, ?)";
 
         try {
             PreparedStatement statement = con.prepareStatement(sql);
-            statement.setString(1, genero);
-            statement.setString(2, instrumento);
-            statement.setInt(3, anos_experiencia);
-            statement.setFloat(4, cache);
-            statement.setInt(5, id_usuario);
+            statement.setString(1, usuario.genero);
+            statement.setString(2, usuario.instrumento);
+            statement.setInt(3, usuario.anos_experiencia);
+            statement.setFloat(4, usuario.cache);
+            statement.setInt(5, usuario.id);
             // Executa a consulta de inserção
             int rowsInserted = statement.executeUpdate();
             // Verifica se a inserção foi bem-sucedida (pelo menos uma linha afetada)
@@ -74,9 +78,9 @@ public class database {
         return false;
     }
 
-    public static boolean insertEvent(String nome, int capacidade, String foco, String status_evento, int idEvento, String date, String endereço, int id_usuario){
+    public boolean insertEvent(String nome, int capacidade, String foco, String status_evento,String date, String endereço, int id_usuario){
 
-        String sql = "INSERT INTO evento (nome, capacidade, foco, status_evento, idEvento, date, endereço, id_usuario) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO evento (nome, capacidade, foco, status_evento, date, endereço, id_usuario) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         try {
             PreparedStatement statement = con.prepareStatement(sql);
@@ -84,10 +88,9 @@ public class database {
             statement.setInt(2, capacidade);
             statement.setString(3, foco);
             statement.setString(4, status_evento);
-            statement.setInt(5, idEvento);
-            statement.setString(6, date);
-            statement.setString(7, endereço);
-            statement.setInt(8, id_usuario);
+            statement.setString(5, date);
+            statement.setString(6, endereço);
+            statement.setInt(7, id_usuario);
             // Executa a consulta de inserção
             int rowsInserted = statement.executeUpdate();
             // Verifica se a inserção foi bem-sucedida (pelo menos uma linha afetada)
@@ -101,7 +104,7 @@ public class database {
         return false;
     }
 
-    public static boolean insertRepertoireBanda(int idBanda, String musica){
+    public boolean insertRepertoireBanda(int idBanda, String musica){
             
         String sql = "INSERT INTO RepertorioBanda (idBanda, musica) VALUES (?, ?)";
 
@@ -122,7 +125,7 @@ public class database {
         return false;
     }
 
-    public static boolean insertRepertoireMusico(int idMusico, String musica){
+    public boolean insertRepertoireMusico(int idMusico, String musica){
                 
         String sql = "INSERT INTO RepertorioMusico (idMusico, musica) VALUES (?, ?)";
 
@@ -144,18 +147,17 @@ public class database {
     }
 
 
-    public static boolean insertBand(int idBanda, String statusBanda, String genero, float cache, float rating, String nome){
+    public boolean insertBand(String statusBanda, String genero, float cache, float rating, String nome){
             
-        String sql = "INSERT INTO banda (idBanda, statusBanda, genero, cache, rating, nome) VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO banda (statusBanda, genero, cache, rating, nome) VALUES (?, ?, ?, ?, ?)";
 
         try {
             PreparedStatement statement = con.prepareStatement(sql);
-            statement.setInt(1, idBanda);
-            statement.setString(2, statusBanda);
-            statement.setString(3, genero);
-            statement.setFloat(4, cache);
-            statement.setFloat(5, rating);
-            statement.setString(6, nome);
+            statement.setString(1, statusBanda);
+            statement.setString(2, genero);
+            statement.setFloat(3, cache);
+            statement.setFloat(4, rating);
+            statement.setString(5, nome);
             // Executa a consulta de inserção
             int rowsInserted = statement.executeUpdate();
             // Verifica se a inserção foi bem-sucedida (pelo menos uma linha afetada)
@@ -169,7 +171,7 @@ public class database {
         return false;
     }
 
-    public static boolean insertParticipaMusico(int idEvento, int idUsuario){
+    public boolean insertParticipaMusico(int idEvento, int idUsuario){
                 
         String sql = "INSERT INTO ParticipaMusico (idEvento, idUsuario) VALUES (?, ?)";
 
@@ -191,7 +193,7 @@ public class database {
     
     }
 
-    public static boolean insertParticipaBanda(int idEvento, int idBanda){
+    public boolean insertParticipaBanda(int idEvento, int idBanda){
                 
         String sql = "INSERT INTO ParticipaBanda (idEvento, idBanda) VALUES (?, ?)";
 
@@ -212,7 +214,7 @@ public class database {
         return false;
     }
 
-    public static boolean insertAfiliado(int idMusico, int idBanda){
+    public boolean insertAfiliado(int idMusico, int idBanda){
 
         String sql = "INSERT INTO Afiliado (idMusico, idBanda) VALUES (?, ?)";
 

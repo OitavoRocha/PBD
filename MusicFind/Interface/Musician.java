@@ -4,6 +4,8 @@ import javax.sound.midi.MidiDevice.Info;
 import javax.swing.*;
 
 import MusicFind.Interface.PreMade.ColorPalette;
+import MusicFind.src.*;
+
 
 import java.awt.*;
 
@@ -26,6 +28,9 @@ public class Musician extends JFrame {
     static JTextArea musicianInfo;
     static JPanel repPanel;
     static JTextArea repertoireArea;
+
+    private database database;
+    private User usuario;
 
 
     public Musician() {
@@ -205,22 +210,22 @@ public class Musician extends JFrame {
     
     private void home() {
         dispose();
-        Home home = new Home();
+        Home home = new Home(database, usuario);
     }
     
     private void createBand() {
         dispose();
-        CreateBand createBand = new CreateBand();
+        CreateBand createBand = new CreateBand(database, usuario);
     }
 
     private void createEvent() {
         dispose();
-        CreateEvent createEvent = new CreateEvent();
+        CreateEvent createEvent = new CreateEvent(database, usuario);
     }
 
     private void openSearch() {
         dispose();
-        SearchPage search = new SearchPage();
+        SearchPage search = new SearchPage(database, usuario);
     }
 
     private void setInfo() {

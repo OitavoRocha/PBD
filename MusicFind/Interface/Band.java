@@ -1,9 +1,9 @@
 package MusicFind.Interface;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 
 import MusicFind.Interface.PreMade.ColorPalette;
+import MusicFind.src.*;
 
 import java.awt.*;
 
@@ -29,10 +29,17 @@ public class Band extends JFrame{
     static JTextArea repertoireArea;
     static JButton repertoireButton;
 
+    private database database;
+    private User usuario;
+    public int idBanda;
 
-    public Band() {
+    public Band(database db, User user, int id) {
         super("MusicFind");
+        idBanda = id;
+        database = db;
+        usuario = user;
         initComponents();
+        setInfo();
     }
 
     private void initComponents() {
@@ -213,26 +220,30 @@ public class Band extends JFrame{
     }
 
     private void addRepertoire() {
-        RepertoireAdd repertoire = new RepertoireAdd();
+        RepertoireAdd repertoire = new RepertoireAdd(0, database, usuario);
     }
 
     private void home() {
         dispose();
-        Home home = new Home();
+        Home home = new Home(database, usuario);
     }
 
     private void createBand() {
         dispose();
-        CreateBand createBand = new CreateBand();
+        CreateBand createBand = new CreateBand(database, usuario);
     }
 
     private void createEvent() {
         dispose();
-        CreateEvent createEvent = new CreateEvent();
+        CreateEvent createEvent = new CreateEvent(database, usuario);
     }
 
     private void openSearch() {
         dispose();
-        SearchPage search = new SearchPage();
+        SearchPage search = new SearchPage(database, usuario);
+    }
+
+    private void setInfo() {
+        // TODO: setar as informações da banda com base no idBanda
     }
 }

@@ -20,7 +20,7 @@ CREATE TABLE musicfind.Evento (
     capacidade INT,
     foco VARCHAR(30),
     status_evento VARCHAR(30),
-    idEvento INT PRIMARY KEY,
+    idEvento SERIAL PRIMARY KEY,
     data DATE,
     endereço VARCHAR(30),
     idUsuario INT references musicfind.Usuario(idUsuario)

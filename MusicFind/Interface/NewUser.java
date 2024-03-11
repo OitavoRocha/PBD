@@ -4,7 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 
 import MusicFind.Interface.PreMade.ColorPalette;
-import MusicFind.Interface.PreMade.Label;;
+import MusicFind.Interface.PreMade.Label;
+import MusicFind.src.*;
 
 public class NewUser extends JFrame{
     static JPanel mainPanel;
@@ -29,9 +30,14 @@ public class NewUser extends JFrame{
     static Label cacheLabel;
     static JPanel footer;
     static JButton confirmButton;
+
+    static database database;
+    static User usuario;
     
-    public NewUser(){
+    public NewUser(database db, User user){
         super("MusicFind");
+        usuario = user;
+        database = db;
         initComponents();
     }
 
@@ -72,6 +78,19 @@ public class NewUser extends JFrame{
         typeBox.setAlignmentX(Component.CENTER_ALIGNMENT);
         typeBox.setBackground(ColorPalette.ONYX.getColor());
         typeBox.setForeground(ColorPalette.N_WHITE.getColor());
+        typeBox.addActionListener(e -> {
+            if (typeBox.getSelectedItem().equals("Sim")) {
+                yearsPanel.setVisible(true);
+                instrumentPanel.setVisible(true);
+                genrePanel.setVisible(true);
+                cachePanel.setVisible(true);
+            } else {
+                yearsPanel.setVisible(false);
+                instrumentPanel.setVisible(false);
+                genrePanel.setVisible(false);
+                cachePanel.setVisible(false);
+            }
+        });
 
         typePanel.add(typeLabel);
         typePanel.add(typeBox);
@@ -137,9 +156,16 @@ public class NewUser extends JFrame{
         confirmButton.setBackground(ColorPalette.BYAZNTINE_BLUE.getColor());
         confirmButton.setPreferredSize(new Dimension(250, 60));
         confirmButton.setForeground(ColorPalette.N_WHITE.getColor());
+        confirmButton.addActionListener( e -> {
+            cadastrarUsuario();
+        });
 
         footer.add(confirmButton);
-
+        
+        yearsPanel.setVisible(false);
+        instrumentPanel.setVisible(false);
+        genrePanel.setVisible(false);
+        cachePanel.setVisible(false);
 
         innerPanel.add(contactPanel);
         innerPanel.add(typePanel);
@@ -164,6 +190,29 @@ public class NewUser extends JFrame{
         setResizable(false);
         setLocationRelativeTo(null);
         setVisible(true);
+    }
+
+    private void cadastrarUsuario() {
+        usuario.setContato(contactField.getText());
+        usuario.setRating(5.0f);
+        if (typeBox.getSelectedItem().equals("Sim")) {
+            usuario.setTipo("musico");
+            usuario.setAnos_experiencia(Integer.parseInt(yearsField.getText()));
+            usuario.setInstrumento(instrumentField.getText());
+            usuario.setGenero(genreField.getText());
+            usuario.setCache(Float.parseFloat(cacheField.getText()));
+        } else {
+            usuario.setTipo("usuario");
+            usuario.setAnos_experiencia(0);
+            usuario.setInstrumento("");
+            usuario.setGenero("");
+            usuario.setCache(0);
+        }
+
+        database.insertUser(usuario);
+        
+        dispose();
+        Home home = new Home(database, usuario);
     }
 
 }

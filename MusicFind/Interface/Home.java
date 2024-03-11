@@ -3,6 +3,8 @@ package MusicFind.Interface;
 import javax.swing.*;
 
 import MusicFind.Interface.PreMade.ColorPalette;
+import MusicFind.src.User;
+import MusicFind.src.database;
 
 import java.awt.*;
 
@@ -28,9 +30,13 @@ public class Home extends JFrame {
     static JTextArea repertoireArea;
     static JButton repertoireButton;
 
+    static database database;
+    static User usuario;
 
-    public Home() {
+    public Home(database db, User user) {
         super("MusicFind");
+        usuario = user;
+        database = db;
         initComponents();
         setInfo();
     }
@@ -224,22 +230,22 @@ public class Home extends JFrame {
     
     private void createBand() {
         dispose();
-        CreateBand createBand = new CreateBand();
+        CreateBand createBand = new CreateBand(database, usuario);
     }
 
     private void createEvent() {
         dispose();
-        CreateEvent createEvent = new CreateEvent();
+        CreateEvent createEvent = new CreateEvent(database, usuario);
     }
 
     private void openSearch() {
         dispose();
-        SearchPage search = new SearchPage();
+        SearchPage search = new SearchPage(database, usuario);
     }
 
 
     private void addRepertoire() {
-        RepertoireAdd repertoire = new RepertoireAdd();
+        RepertoireAdd repertoire = new RepertoireAdd(1, database, usuario);
     }
 
     private void setInfo() {

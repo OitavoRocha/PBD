@@ -3,6 +3,8 @@ package MusicFind.Interface;
 import javax.swing.*;
 
 import MusicFind.Interface.PreMade.ColorPalette;
+import MusicFind.src.*;
+
 
 import java.awt.*;
 
@@ -25,12 +27,21 @@ public class Event extends JFrame {
     static JTextArea participantsInfo;
     static JPanel infoPanel;
     static JTextArea info;
+
+    private database database;
+    private User usuario;
+    private int idEvento;
     
-    public Event() {
+    public Event(database db, User user, int id) {
         super("MusicFind");
+        idEvento = id;
+        database = db;
+        usuario = user;
         initComponents();
+        setInfo();
     }
 
+    
     private void initComponents() {
         // LEFT BAR COMPONENTS
         leftBar = new JPanel();
@@ -87,7 +98,7 @@ public class Event extends JFrame {
         // MAIN PANEL COMPONENTS
         mainPanel = new JPanel();
         mainPanel.setBackground(ColorPalette.EERIE_B.getColor());
-
+        
         header = new JPanel();
         header.setBackground(ColorPalette.EERIE_B.getColor());
         header.setSize(new Dimension(850, 200));
@@ -97,12 +108,12 @@ public class Event extends JFrame {
         profilePanel.setBackground(ColorPalette.EERIE_B.getColor());
         profilePanel.setPreferredSize(new Dimension(200, 200));
         profilePanel.setLayout(new BoxLayout(profilePanel, BoxLayout.Y_AXIS));
-
+        
         profileLabel = new JLabel("Evento");
         profileLabel.setForeground(ColorPalette.N_WHITE.getColor());
         profileLabel.setFont(new Font("Arial", Font.BOLD, 40));
         profileLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
-
+        
         //profilePanel.add(Box.createRigidArea(new Dimension(0, 100)));
         profilePanel.add(profileLabel, BorderLayout.WEST);
 
@@ -116,10 +127,10 @@ public class Event extends JFrame {
         genreLabel.setAlignmentX(Component.RIGHT_ALIGNMENT);
         
         genrePanel.add(genreLabel);
-
+        
         header.add(profilePanel, BorderLayout.WEST);
         header.add(genrePanel, BorderLayout.EAST);
-
+        
         infoPanel = new JPanel();
         infoPanel.setBackground(ColorPalette.EERIE_B.getColor());
         infoPanel.setPreferredSize(new Dimension(850, 250));
@@ -136,13 +147,13 @@ public class Event extends JFrame {
         info.setLineWrap(true);
         info.setWrapStyleWord(true);
         info.setEditable(false);
-
+        
         infoPanel.add(info);
-
+        
         participantsPanel = new JPanel();
         participantsPanel.setBackground(ColorPalette.EERIE_B.getColor());
         participantsPanel.setPreferredSize(new Dimension(850, 250));
-
+        
         participantsInfo = new JTextArea();
         participantsInfo.setBackground(ColorPalette.EERIE_B.getColor());
         participantsInfo.setForeground(ColorPalette.N_WHITE.getColor());
@@ -155,8 +166,8 @@ public class Event extends JFrame {
         participantsInfo.setEditable(false);
         
         participantsPanel.add(participantsInfo);
-
-
+        
+        
         mainPanel.add(header);
         mainPanel.add(infoPanel);
         mainPanel.add(participantsPanel);
@@ -172,25 +183,28 @@ public class Event extends JFrame {
         setLocationRelativeTo(null);
         setVisible(true);
     }
-
+    
     private void home() {
         dispose();
-        Home home = new Home();
+        Home home = new Home(database, usuario);
     }
-
+    
     private void createBand() {
         dispose();
-        CreateBand createBand = new CreateBand();
+        CreateBand createBand = new CreateBand(database, usuario);
     }
 
     private void createEvent() {
         dispose();
-        CreateEvent createEvent = new CreateEvent();
-    }
-
-    private void openSearch() {
-        dispose();
-        SearchPage search = new SearchPage();
+        CreateEvent createEvent = new CreateEvent(database, usuario);
     }
     
+    private void openSearch() {
+        dispose();
+        SearchPage search = new SearchPage(database, usuario);
+    }
+    
+    private void setInfo() {
+        // TODO: setar com as informações do data base -- faz isso com base no idEvento
+    }
 }

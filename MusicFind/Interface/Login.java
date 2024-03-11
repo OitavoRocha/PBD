@@ -6,6 +6,7 @@ import javax.swing.*;
 
 import MusicFind.Interface.PreMade.ColorPalette;
 import MusicFind.Interface.PreMade.ImagePanel;
+import MusicFind.src.*;
 
 public class Login extends JFrame {
     private JButton loginButton;
@@ -24,9 +25,12 @@ public class Login extends JFrame {
     private JPanel header;
     private ImagePanel logo;
 
+    private database database;
+    private User usuario;
     
-    public Login() {
+    public Login(database db) {
         super("MusicFind");
+        database = db;
         initComponents();
     }
 
@@ -146,14 +150,16 @@ public class Login extends JFrame {
     }
 
     private void checkLogin() {
-        // TODO: fazer as coisas do login
+        // TODO: fazer as coisas do login - comparar username e senha com o banco de dados //  testar se o usuario é tipo musico ou user // criar a instância de usuario adequada
+        usuario = new User();
+
         dispose();
-        Home home = new Home();
+
+        Home home = new Home(database, usuario);
     }
 
     private void register() {
-        // TODO: fazer as coisas do registro
         dispose();
-        Registration registration = new Registration();
+        Registration registration = new Registration(database);
     }
 }

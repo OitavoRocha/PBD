@@ -4,6 +4,8 @@ import java.awt.*;
 import javax.swing.*;
 
 import MusicFind.Interface.PreMade.ColorPalette;
+import MusicFind.src.*;
+
 
 public class CreateEvent extends JFrame{
     static JPanel leftBar;
@@ -33,9 +35,14 @@ public class CreateEvent extends JFrame{
     static JPanel footer;
     static JButton createButton;
 
+    private database database;
+    private User usuario;
 
-    public CreateEvent() {
+
+    public CreateEvent(database db, User user) {
         super("MusicFind");
+        database = db;
+        usuario = user;
         initComponents();
     }
 
@@ -254,23 +261,32 @@ public class CreateEvent extends JFrame{
 
     private void home() {
         dispose();
-        Home home = new Home();
+        Home home = new Home(database, usuario);
     }
 
     private void createBand() {
         dispose();
-        CreateBand createBand = new CreateBand();
+        CreateBand createBand = new CreateBand(database, usuario);
     }
 
     private void openSearch() {
         dispose();
-        SearchPage search = new SearchPage();
+        SearchPage search = new SearchPage(database, usuario);
     }
 
     private void createEvent() {
-        // TODO: adicionar evento no banco de dados
-        //dispose();
+        String name = nameField.getText();
+        int capacidade = Integer.parseInt(capacityField.getText());
+        String foco = focusField.getText();
+        String local = locationField.getText();
+        String data = dateField.getText();
         
+        database.insertEvent(name, capacidade, foco, "Em Andamento", data, local, usuario.getId());
+        
+        // TODO: SELECT idEvento FROM Evento WHERE nome = name;
+        dispose();
+        int idEvento = 0;
+        Event event = new Event(database, usuario, idEvento);
     }
     
 }

@@ -4,11 +4,10 @@ import javax.swing.*;
 
 import MusicFind.Interface.PreMade.ColorPalette;
 import MusicFind.Interface.PreMade.ImagePanel;
+import MusicFind.src.User;
 import MusicFind.src.database;
 
 import java.awt.*;
-import java.util.Arrays;
-
 public class Registration extends JFrame{
     private JButton registerButton;
     private JTextField usernameField;
@@ -28,9 +27,13 @@ public class Registration extends JFrame{
     private JPanel header;
     private ImagePanel logo;
 
+    private static database database;
+    private static User usuario;
     
-    public Registration() {
+    public Registration(database db) {
         super("MusicFind");
+        usuario = new User();
+        database = db;
         initComponents();
     }
 
@@ -170,11 +173,11 @@ public class Registration extends JFrame{
             return;
         }
         JOptionPane.showMessageDialog(this, "Usuário registrado com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-        // TODO: lidar com a inserção no banco de dados
-        database.insertUser("teste", 0, username, userpassword, "Musico");
+
+        usuario.username = username;
+        usuario.userpassword = userpassword;
         
-        // TODO: passar para a pagina de newUser para colocar seus dados
         dispose();
-        Home home = new Home();
+        NewUser newUser = new NewUser(database, usuario);
     }
 }

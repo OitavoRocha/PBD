@@ -3,6 +3,7 @@ package MusicFind.Interface;
 import javax.swing.*;
 
 import MusicFind.Interface.PreMade.ColorPalette;
+import MusicFind.src.*;
 
 import java.awt.*;
 
@@ -19,15 +20,18 @@ public class SearchPage extends JFrame {
     static JRadioButton searchByMusician;
     static JPanel searchPanel;
     static JTextField searchField;
-    static JComboBox<String> orderSearch;
     static JPanel resultsPanel;
     static JTable resultsTable;
     static JPanel footer;
     static JButton goToButton;
 
+    private database database;
+    private User usuario;
 
-    public SearchPage() {
+    public SearchPage(database db, User user) {
         super("MusicFind");
+        database = db;
+        usuario = user;
         initComponents();
     }
 
@@ -95,16 +99,31 @@ public class SearchPage extends JFrame {
         searchByBand.setSelected(false);
         searchByBand.setBackground(ColorPalette.EERIE_B.getColor());
         searchByBand.setForeground(ColorPalette.N_WHITE.getColor());
+        searchByBand.addActionListener(e -> {
+            searchByEvent.setSelected(false);
+            searchByMusician.setSelected(false);
+            //SELECT FROM BANDA
+        });
 
         searchByEvent = new JRadioButton("Event");
         searchByEvent.setSelected(false);
         searchByEvent.setBackground(ColorPalette.EERIE_B.getColor());
         searchByEvent.setForeground(ColorPalette.N_WHITE.getColor());
+        searchByEvent.addActionListener(e -> {
+            searchByBand.setSelected(false);
+            searchByMusician.setSelected(false);
+            //SELECT FROM EVENTO
+        });
 
         searchByMusician = new JRadioButton("Musician");
         searchByMusician.setSelected(false);
         searchByMusician.setBackground(ColorPalette.EERIE_B.getColor());
         searchByMusician.setForeground(ColorPalette.N_WHITE.getColor());
+        searchByMusician.addActionListener(e -> {
+            searchByBand.setSelected(false);
+            searchByEvent.setSelected(false);
+            //SELECT FROM MUSICO
+        });
 
         header.add(searchByBand);
         header.add(searchByEvent);
@@ -120,18 +139,8 @@ public class SearchPage extends JFrame {
         searchField = new JTextField();
         searchField.setPreferredSize(new Dimension(500, 30));
         searchField.setAlignmentX(Component.CENTER_ALIGNMENT);
-        
-        orderSearch = new JComboBox<>();
-        orderSearch.addItem("Option 1");
-        orderSearch.addItem("Option 2");
-        orderSearch.addItem("Option 3");
-        orderSearch.setPreferredSize(new Dimension(200, 30));
-        orderSearch.setAlignmentX(Component.CENTER_ALIGNMENT);
-        orderSearch.setBackground(ColorPalette.ONYX.getColor());
-        orderSearch.setForeground(ColorPalette.N_WHITE.getColor());
     
         searchPanel.add(searchField);
-        searchPanel.add(orderSearch);
 
         resultsPanel = new JPanel();
         resultsPanel.setBackground(ColorPalette.EERIE_B.getColor());
@@ -181,21 +190,22 @@ public class SearchPage extends JFrame {
     }
 
     private void goTo() {
-        // TODO Auto-generated method stub
+        // TODO: pegar o valor da tabela para ir até a página do evento/banda/músico
+        
     }
 
     private void createBand() {
         dispose();
-        CreateBand createBand = new CreateBand();
+        CreateBand createBand = new CreateBand(database, usuario);
     }
 
     private void createEvent() {
         dispose();
-        CreateEvent createEvent = new CreateEvent();
+        CreateEvent createEvent = new CreateEvent(database, usuario);
     }
 
     private void home() {
         dispose();
-        Home home = new Home();
+        Home home = new Home(database, usuario);
     }
 }
