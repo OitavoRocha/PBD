@@ -1,9 +1,11 @@
 package MusicFind.src;
 
+import java.lang.reflect.Array;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class database {
     
@@ -233,6 +235,255 @@ public class database {
             e.printStackTrace();
         }
         return false;
+    }
+
+    public int getBandaId(String nomeBanda){
+
+        String sql = "SELECT idBanda FROM Banda WHERE nome = ?";
+
+        try {
+            PreparedStatement statement = con.prepareStatement(sql);
+            statement.setString(1, nomeBanda);
+            // Executa a consulta de busca
+            int rowsInserted = statement.executeUpdate();
+            // Verifica se a consulta foi bem-sucedida 
+            if (rowsInserted > 0) {
+                System.out.println("Id da banda retornado com sucesso");
+                // Retorna o id da banda com o nome passado no resultado da consulta
+                return statement.getResultSet().getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    public int getEventoId(String nomeEvento){
+
+        String sql = "SELECT idEvento FROM Evento WHERE nome = ?";
+
+        try {
+            PreparedStatement statement = con.prepareStatement(sql);
+            statement.setString(1, nomeEvento);
+            // Executa a consulta de busca
+            int rowsInserted = statement.executeUpdate();
+            // Verifica se a consulta foi bem-sucedida 
+            if (rowsInserted > 0) {
+                System.out.println("Id do evento retornado com sucesso");
+                // Retorna o id do evento com o nome passado no resultado da consulta
+                return statement.getResultSet().getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    // Método para retornar uma lista com os dados de um usuario a partir do idusuario
+    public ArrayList<String> getUserData(int idUsuario){
+
+        String sql = "SELECT * FROM Usuario WHERE idUsuario = ?";
+
+        try {
+            PreparedStatement statement = con.prepareStatement(sql);
+            statement.setInt(1, idUsuario);
+            // Executa a consulta de busca
+            int rowsInserted = statement.executeUpdate();
+            // Verifica se a consulta foi bem-sucedida 
+            if (rowsInserted > 0) {
+                System.out.println("Dados do usuário retornados com sucesso");
+                ArrayList<String> userData = new ArrayList<String>();
+                userData.add(statement.getResultSet().getString(1));
+                userData.add(statement.getResultSet().getString(2));
+                userData.add(statement.getResultSet().getString(3));
+                userData.add(statement.getResultSet().getString(4));
+                userData.add(statement.getResultSet().getString(5));
+                userData.add(statement.getResultSet().getString(6));
+                return userData;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public ArrayList<String> getBandaData(int idBanda){
+
+        String sql = "SELECT * FROM Banda WHERE idBanda = ?";
+
+        try {
+            PreparedStatement statement = con.prepareStatement(sql);
+            statement.setInt(1, idBanda);
+            // Executa a consulta de busca
+            int rowsInserted = statement.executeUpdate();
+            // Verifica se a consulta foi bem-sucedida 
+            if (rowsInserted > 0) {
+                System.out.println("Dados da banda retornados com sucesso");
+                ArrayList<String> bandaData = new ArrayList<String>();
+                bandaData.add(statement.getResultSet().getString(1));
+                bandaData.add(statement.getResultSet().getString(2));
+                bandaData.add(statement.getResultSet().getString(3));
+                bandaData.add(statement.getResultSet().getString(4));
+                bandaData.add(statement.getResultSet().getString(5));
+                return bandaData;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public ArrayList<String> getMusicoData(int idMusico){
+
+        String sql = "SELECT * FROM Musico WHERE idMusico = ?";
+
+        try {
+            PreparedStatement statement = con.prepareStatement(sql);
+            statement.setInt(1, idMusico);
+            // Executa a consulta de busca
+            int rowsInserted = statement.executeUpdate();
+            // Verifica se a consulta foi bem-sucedida 
+            if (rowsInserted > 0) {
+                System.out.println("Dados do músico retornados com sucesso");
+                ArrayList<String> musicoData = new ArrayList<String>();
+                musicoData.add(statement.getResultSet().getString(1));
+                musicoData.add(statement.getResultSet().getString(2));
+                musicoData.add(statement.getResultSet().getString(3));
+                musicoData.add(statement.getResultSet().getString(4));
+                musicoData.add(statement.getResultSet().getString(5));
+                return musicoData;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public ArrayList<String> getEventoData(int idEvento){
+
+        String sql = "SELECT * FROM Evento WHERE idEvento = ?";
+
+        try {
+            PreparedStatement statement = con.prepareStatement(sql);
+            statement.setInt(1, idEvento);
+            // Executa a consulta de busca
+            int rowsInserted = statement.executeUpdate();
+            // Verifica se a consulta foi bem-sucedida 
+            if (rowsInserted > 0) {
+                System.out.println("Dados do evento retornados com sucesso");
+                ArrayList<String> eventoData = new ArrayList<String>();
+                eventoData.add(statement.getResultSet().getString(1));
+                eventoData.add(statement.getResultSet().getString(2));
+                eventoData.add(statement.getResultSet().getString(3));
+                eventoData.add(statement.getResultSet().getString(4));
+                eventoData.add(statement.getResultSet().getString(5));
+                eventoData.add(statement.getResultSet().getString(6));
+                eventoData.add(statement.getResultSet().getString(7));
+                eventoData.add(statement.getResultSet().getString(8));
+                return eventoData;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public ArrayList<String> getUserUsernamePassword(String username){
+            
+        String sql = "SELECT username, userpassword FROM Usuario WHERE username = ?";
+
+        try {
+            PreparedStatement statement = con.prepareStatement(sql);
+            statement.setString(1, username);
+            // Executa a consulta de busca
+            int rowsInserted = statement.executeUpdate();
+            // Verifica se a consulta foi bem-sucedida 
+            if (rowsInserted > 0) {
+                System.out.println("Dados do usuário retornados com sucesso");
+                ArrayList<String> userData = new ArrayList<String>();
+                userData.add(statement.getResultSet().getString(1));
+                userData.add(statement.getResultSet().getString(2));
+                return userData;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public ArrayList<String> getNomeFromBandaOnEvent(int idEvento){
+            
+        String sql = "select nome from participaBanda natural join banda where idevento = ?";
+
+        try {
+            PreparedStatement statement = con.prepareStatement(sql);
+            statement.setInt(1, idEvento);
+            // Executa a consulta de busca
+            int rowsInserted = statement.executeUpdate();
+            // Verifica se a consulta foi bem-sucedida 
+            if (rowsInserted > 0) {
+                // Enquanto houverem resultados, adiciona o nome da banda à lista
+                ArrayList<String> bandas = new ArrayList<String>();
+                while (statement.getResultSet().next()){
+                    bandas.add(statement.getResultSet().getString(1));
+                }
+                System.out.println("Nome das bandas retornado com sucesso");
+                return bandas;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public ArrayList<String> getNomeFromMusicoOnEvent(int idEvento){
+            
+        String sql = "select username from participaMusico natural join usuario where idevento = ?";
+
+        try {
+            PreparedStatement statement = con.prepareStatement(sql);
+            statement.setInt(1, idEvento);
+            // Executa a consulta de busca
+            int rowsInserted = statement.executeUpdate();
+            // Verifica se a consulta foi bem-sucedida 
+            if (rowsInserted > 0) {
+                // Enquanto houverem resultados, adiciona o nome do músico à lista
+                ArrayList<String> musicos = new ArrayList<String>();
+                while (statement.getResultSet().next()){
+                    musicos.add(statement.getResultSet().getString(1));
+                }
+                System.out.println("Nome dos músicos retornado com sucesso");
+                return musicos;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public ArrayList<String> getNomeFromMusicoOnBanda(int idBanda){
+            
+        String sql = "select username from afiliado join usuario on idmusico = idusuario where idbanda = ?";
+
+        try {
+            PreparedStatement statement = con.prepareStatement(sql);
+            statement.setInt(1, idBanda);
+            // Executa a consulta de busca
+            int rowsInserted = statement.executeUpdate();
+            // Verifica se a consulta foi bem-sucedida 
+            if (rowsInserted > 0) {
+                // Enquanto houverem resultados, adiciona o nome do músico à lista
+                ArrayList<String> musicos = new ArrayList<String>();
+                while (statement.getResultSet().next()){
+                    musicos.add(statement.getResultSet().getString(1));
+                }
+                System.out.println("Nome dos músicos retornado com sucesso");
+                return musicos;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
 

@@ -13,10 +13,10 @@
 
 
 -----------------------------SQL------------------------------------
- - CreateBand precisa pegar o id da banda que acabou de ser criada para mandar pra Band
- - CreateEvent precisa pegar o id do evento que acabou de ser criado para mandar para event
- - Precisa dos SELECTS que vão ser usado para pegar os atributos de USUARIO, BANDA, MUSICO E EVENTO para colocar suas informações nas páginas -- pra isso que eu preciso do idEvento e idBanda nas suas respectivas classes
- - Precisa ter o SELECT para pegar os usernames e password dos usuario pro login
- - Preciso de um SELECT pra pegar todas os atributos do usuário
- - Precisa fazer o SELECT pra pegar qm vai participar de um evento -- talvez fazer um join entre ParticipaBanda e ParticipaMusico pelo idEvento, ai depois um join com banda e outro com musico pra pegar os nomes
- - SELECT pra pegar os integrantes de uma banda
+ - CreateBand precisa pegar o id da banda que acabou de ser criada para mandar pra Band -- DONE
+ - CreateEvent precisa pegar o id do evento que acabou de ser criado para mandar para event -- DONE
+ - Precisa dos SELECTS que vão ser usado para pegar os atributos de USUARIO, BANDA, MUSICO E EVENTO para colocar suas informações nas páginas -- DONE -- pra isso que eu preciso do idEvento e idBanda nas suas respectivas classes
+ - Precisa ter o SELECT para pegar os usernames e password dos usuario pro login -- DONE
+ - Preciso de um SELECT pra pegar todas os atributos do usuário -- DONE, foi feito no 3 ali em cima
+ - Precisa fazer o SELECT pra pegar qm vai participar de um evento -- DONE -- talvez fazer um join entre ParticipaBanda e ParticipaMusico pelo idEvento, ai depois um join com banda e outro com musico pra pegar os nomes
+ - SELECT pra pegar os integrantes de uma banda -- DONE
