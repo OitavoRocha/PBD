@@ -53,7 +53,7 @@ public class Login extends JFrame {
         leftPanel.setPreferredSize(new Dimension(500, 800));
         
         // TODO: Trocar imagem provisoria
-        logo = new ImagePanel("Images\\musicFinc.png");
+        logo = new ImagePanel("Images\\musicFindW.png");
         
         leftPanel.add(Box.createRigidArea(new Dimension(0, 600)));
         leftPanel.add(logo);

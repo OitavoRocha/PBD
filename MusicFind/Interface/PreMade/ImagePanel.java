@@ -14,7 +14,7 @@ public class ImagePanel extends JPanel {
 
     public ImagePanel(String imagePath) {
         try {
-            image = ImageIO.read(new File("Images\\musicFinc.png")); // Load the image from file
+            image = ImageIO.read(new File("Images\\musicFindW.png")); // Load the image from file
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -20,9 +20,9 @@ public class App {
         //if (!database.connectDataBase()){
         //    return;
         //}
-        //login = new Login(database);
+        login = new Login(database);
         //home = new Home();
-        search = new SearchPage(database, null);
+        //search = new SearchPage(database, null);
         //registration = new Registration();
         //repertoireAdd = new RepertoireAdd();
         //createEvent = new CreateEvent();
