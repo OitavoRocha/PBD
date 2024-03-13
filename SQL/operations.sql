@@ -30,3 +30,29 @@
 -- SELECT para pegar o rating de um musico
     select rating from musicfind.usuario where username = 'joao';
 
+-- Remover um musico de uma banda
+    delete from musicfind.afiliado
+    where idmusico = 1 and idbanda = 1;
+
+-- Adicionar um musico a uma banda
+    insert into musicfind.afiliado values (1, 1);
+
+-- Adicionar uma musica ao repertório de uma banda
+    insert into musicfind.repertoriobanda values (1, 'Sweet Home Alabama');
+
+-- Alterar o rating de um musico
+    update musicfind.usuario set rating = 4.8
+    where username = 'joao';
+
+-- Selecionar todos os usuarios com rating maior que 4.5
+    select * from musicfind.usuario
+    where rating > 4.5;
+
+-- Selecionar todos os eventos que vão acontecer
+    select * from musicfind.evento
+    where data > current_date;
+
+-- Alterar o cache de uma banda para receber um aumento de 50%
+    update musicfind.banda set cache = cache * 1.5
+    where nome = 'Banda X';
+
