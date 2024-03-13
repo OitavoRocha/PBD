@@ -25,6 +25,7 @@ public class Band extends JFrame{
     static JLabel ratingLabel;
     static JPanel eventsPanel;
     static JTextArea eventsInfo;
+    static JTextArea participantsArea;
     static JPanel bandPanel;
     static JTextArea bandInfo;
     static JTextArea repertoireArea;
@@ -164,15 +165,27 @@ public class Band extends JFrame{
         eventsInfo = new JTextArea();
         eventsInfo.setBackground(ColorPalette.EERIE_B.getColor());
         eventsInfo.setForeground(ColorPalette.N_WHITE.getColor());
-        eventsInfo.setPreferredSize(new Dimension(800, 200));
+        eventsInfo.setPreferredSize(new Dimension(500, 200));
         eventsInfo.setFont(new Font("Arial", Font.PLAIN, 16));
         eventsInfo.setText("Eventos: \n");
         eventsInfo.setAlignmentX(Component.LEFT_ALIGNMENT);
         eventsInfo.setLineWrap(true);
         eventsInfo.setWrapStyleWord(true);
         eventsInfo.setEditable(false);
+
+        participantsArea = new JTextArea();
+        participantsArea.setBackground(ColorPalette.EERIE_B.getColor());
+        participantsArea.setForeground(ColorPalette.N_WHITE.getColor());
+        participantsArea.setPreferredSize(new Dimension(200, 200));
+        participantsArea.setFont(new Font("Arial", Font.PLAIN, 16));
+        participantsArea.setText("Participantes: \n");
+        participantsArea.setAlignmentX(Component.LEFT_ALIGNMENT);
+        participantsArea.setLineWrap(true);
+        participantsArea.setWrapStyleWord(true);
+        participantsArea.setEditable(false);
         
         eventsPanel.add(eventsInfo);
+        eventsPanel.add(participantsArea);
 
         bandPanel = new JPanel();
         bandPanel.setBackground(ColorPalette.EERIE_B.getColor());
@@ -259,8 +272,15 @@ public class Band extends JFrame{
         } else {
             repertoireButton.setVisible(false);
         }
-
+        ArrayList<String> participants = database.getNomeFromMusicoOnBanda(idBanda);
+        
         eventsInfo.setText(String.join("\n", database.getEventosFromBanda(idBanda)));
+        if (participants.isEmpty()) {
+            participants.add("Nenhum participante");
+            return;
+        }
+        
+        participantsArea.setText(String.join("\n", participants));
     }
 
     public void updateRepertoire() {

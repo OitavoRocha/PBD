@@ -217,6 +217,11 @@ public class Event extends JFrame {
         System.out.println(participants);
         participants.addAll(database.getNomeFromMusicoOnEvent(idEvento));
 
+        if (participants.isEmpty()) {
+            participants.add("Nenhum participante");
+            return;
+        }
+
         participantsInfo.setText(String.join("\n", participants));
     }
 }

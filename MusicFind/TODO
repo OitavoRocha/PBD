@@ -3,10 +3,10 @@
  - Arrumar o logo no login -- DONE  
  - Arrumar o login -- DONE
  - Botão para mostrar os membros de uma banda na pagina da banda
- - Botão para mostrar qm vai participar dos eventos
+ - Botão para mostrar qm vai participar dos eventos -- DONE
  - Alterar a tabela de resultados do SearchPage
  - Alterar o perfil do usuário caso este não seja um musico -- DONE
- - Liberar o botão de AddRepertoire caso o usuário seja membro da banda
+ - Liberar o botão de AddRepertoire caso o usuário seja membro da banda -- DONE
 --------------------------------------------------------------------
 
 

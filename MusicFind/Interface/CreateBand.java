@@ -2,11 +2,14 @@ package MusicFind.Interface;
 
 import javax.swing.*;
 
+import org.postgresql.shaded.com.ongres.scram.common.bouncycastle.pbkdf2.Strings;
+
 import MusicFind.Interface.PreMade.ColorPalette;
 import MusicFind.src.*;
 
 
 import java.awt.*;
+import java.util.ArrayList;
 
 public class CreateBand extends JFrame{
     static JPanel leftBar;
@@ -232,11 +235,23 @@ public class CreateBand extends JFrame{
         String genre = genreField.getText();
         Float cache = Float.parseFloat(cacheField.getText());
         
+        ArrayList<String> bandNames = database.getBandNames();
+
+        if (name.equals("") || genre.equals("") || cache.equals("")) {
+            JOptionPane.showMessageDialog(null, "Preencha todos os campos");
+            return;
+        }
+
+        if (bandNames.contains(name)) {
+            JOptionPane.showMessageDialog(null, "Banda Já Existente", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+
         database.insertBand("Ativa", genre, cache, 5.0f, name);
         
         dispose();
         
         int idBanda = database.getBandaId(name);
+        database.insertAfiliado(usuario.getId(), idBanda);
         Band band = new Band(database, usuario, idBanda);
     }
 }

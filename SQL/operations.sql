@@ -1,6 +1,8 @@
 --  consultas nas tabelas criadas e demais operações - -> mínimo de 6 consultas no banco,
 --  sendo no mínimo 4 delas contendo junções entre tabelas.
 
+
+
 --  SELECT pra pegar o repertório de uma banda pelo nome
     select musica from 
     musicfind.RepertorioBanda natural join musicfind.banda
@@ -8,7 +10,7 @@
 
 -- SELECT pra pegar o repertório de um músico pelo nome
     select musica from 
-    musicfind.RepertorioMusico join musicfind.musico on idmusico = idusuario
+    musicfind.RepertorioMusico natural join musicfind.musico
 	natural join musicfind.usuario
     where username = 'joao';
 
@@ -20,8 +22,8 @@
 
 -- SELECT pra pegar os nomes de musicos que estão em uma banda
     select username from
-	musicfind.afiliado join musicfind.usuario on idmusico = idusuario
-	where idbanda = 3
+	musicfind.afiliado natural join musicfind.usuario
+	where idbanda = 3;
 
 -- SELECT para pegar o username e password de um usuario
     select username, userpassword from musicfind.usuario
@@ -32,7 +34,7 @@
 
 -- Remover um musico de uma banda
     delete from musicfind.afiliado
-    where idmusico = 1 and idbanda = 1;
+    where idusuario = 1 and idbanda = 1;
 
 -- Adicionar um musico a uma banda
     insert into musicfind.afiliado values (1, 1);

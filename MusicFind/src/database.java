@@ -12,6 +12,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import org.postgresql.shaded.com.ongres.scram.common.bouncycastle.pbkdf2.Strings;
+
 public class database {
     
     static Connection con = null;
@@ -518,7 +520,7 @@ public class database {
 
     public ArrayList<String> getNomeFromMusicoOnBanda(int idBanda){
             
-        String sql = "select username from afiliado join usuario on idusuario = idusuario where idbanda = ?";
+        String sql = "select username from afiliado NATURAL JOIN usuario where idbanda = ?";
 
         try {
             PreparedStatement statement = con.prepareStatement(sql);
@@ -526,15 +528,13 @@ public class database {
             // Executa a consulta de busca
             ResultSet rs = statement.executeQuery();
             // Verifica se a consulta foi bem-sucedida 
-            if (rs.next()   ) {
-                // Enquanto houverem resultados, adiciona o nome do músico à lista
-                ArrayList<String> musicos = new ArrayList<String>();
-                while (statement.getResultSet().next()){
-                    musicos.add(rs.getString(1));
-                }
-                System.out.println("Nome dos músicos retornado com sucesso");
-                return musicos;
+            ArrayList<String> musicos = new ArrayList<String>();
+            while (rs.next()){
+                musicos.add(rs.getString(1));
             }
+            System.out.println("Nome dos músicos retornado com sucesso");
+            return musicos;
+            
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -689,6 +689,27 @@ public class database {
             }
             System.out.println("Usernames retornados com sucesso");
             return usernames;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public ArrayList<String> getBandNames() {
+        String sql = "SELECT nome FROM banda";
+
+        try {
+            PreparedStatement statement = con.prepareStatement(sql);
+            // Executa a consulta de busca
+            ResultSet rs = statement.executeQuery();
+            // Verifica se a consulta foi bem-sucedida 
+            // Enquanto houverem resultados, adiciona o nome do músico à lista 
+            ArrayList<String> bandNames = new ArrayList<String>();
+            while (rs.next()){
+                bandNames.add(rs.getString(1));
+            }
+            System.out.println("Nomes das bandas retornados com sucesso");
+            return bandNames;
         } catch (SQLException e) {
             e.printStackTrace();
         }
