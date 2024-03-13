@@ -8,6 +8,7 @@ import MusicFind.src.User;
 import MusicFind.src.database;
 
 import java.awt.*;
+import java.util.ArrayList;
 public class Registration extends JFrame{
     private JButton registerButton;
     private JTextField usernameField;
@@ -168,6 +169,19 @@ public class Registration extends JFrame{
         String username = usernameField.getText();
         String userpassword = passwordField.getText();
         String userpasswordConfirm = confirmPasswordField.getText();
+
+        ArrayList<String> usernames = database.getUsernames();
+
+        if (username.equals("") || userpassword.equals("") || userpasswordConfirm.equals("")) {
+            JOptionPane.showMessageDialog(this, "Preencha todos os campos", "Erro", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        if (usernames.contains(username)) {
+            JOptionPane.showMessageDialog(this, "Nome de usuário já existente", "Erro", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
         if (!(userpassword.equals(userpasswordConfirm))) {
             JOptionPane.showMessageDialog(this, "As senhas não coincidem", "Erro", JOptionPane.ERROR_MESSAGE);
             return;

@@ -1,13 +1,11 @@
-
- - Fazer as funções para acessar o banco de dados e pegar as informações
  - Dar um jeito para adicionar um músico na banda
- - Fazer as informações serem escondidas quando não é um músico no perfil
- - Arrumar o logo no login
- - Arrumar o login
+ - Fazer as informações serem escondidas quando não é um músico no perfil -- DONE
+ - Arrumar o logo no login -- DONE  
+ - Arrumar o login -- DONE
  - Botão para mostrar os membros de uma banda na pagina da banda
  - Botão para mostrar qm vai participar dos eventos
  - Alterar a tabela de resultados do SearchPage
- - Alterar o perfil do usuário caso este não seja um musico
+ - Alterar o perfil do usuário caso este não seja um musico -- DONE
  - Liberar o botão de AddRepertoire caso o usuário seja membro da banda
 --------------------------------------------------------------------
 

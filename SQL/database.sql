@@ -48,9 +48,9 @@ CREATE TABLE musicfind.ParticipaBanda (
 );
 
 CREATE TABLE musicfind.RepertorioMusico (
-    idMusico INT references musicfind.Musico(idUsuario),
+    idUsuario INT references musicfind.Musico(idUsuario),
     musica VARCHAR(50),
-    PRIMARY KEY (idMusico, musica)
+    PRIMARY KEY (idUsuario, musica)
 );
 
 CREATE TABLE musicfind.RepertorioBanda (
@@ -60,9 +60,9 @@ CREATE TABLE musicfind.RepertorioBanda (
 );
 
 CREATE TABLE musicfind.Afiliado (
-    idMusico INT NOT NULL,
+    idUsuario INT NOT NULL,
     idBanda INT NOT NULL,
-    PRIMARY KEY (idMusico, idBanda),
-    FOREIGN KEY (idMusico) REFERENCES musicfind.Usuario(idUsuario),
+    PRIMARY KEY (idUsuario, idBanda),
+    FOREIGN KEY (idUsuario) REFERENCES musicfind.Usuario(idUsuario),
     FOREIGN KEY (idBanda) REFERENCES musicfind.Banda(idBanda)
 );

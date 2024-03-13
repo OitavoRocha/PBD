@@ -196,19 +196,20 @@ public class NewUser extends JFrame{
         usuario.setContato(contactField.getText());
         usuario.setRating(5.0f);
         if (typeBox.getSelectedItem().equals("Sim")) {
-            usuario.setTipo("musico");
+            usuario.setTipo("Musico");
             usuario.setAnos_experiencia(Integer.parseInt(yearsField.getText()));
             usuario.setInstrumento(instrumentField.getText());
             usuario.setGenero(genreField.getText());
             usuario.setCache(Float.parseFloat(cacheField.getText()));
         } else {
-            usuario.setTipo("usuario");
+            usuario.setTipo("Usuario");
             usuario.setAnos_experiencia(0);
             usuario.setInstrumento("");
             usuario.setGenero("");
             usuario.setCache(0);
         }
-
+        usuario.printUser();
+        
         database.insertUser(usuario);
         
         dispose();

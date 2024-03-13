@@ -50,7 +50,7 @@ INSERT INTO musicfind.ParticipaMusico (idEvento, idUsuario) VALUES
 (5, 9);
 
 -- Inserções na tabela RepertorioMusico
-INSERT INTO musicfind.RepertorioMusico (idMusico, musica) VALUES
+INSERT INTO musicfind.RepertorioMusico (idUsuario, musica) VALUES
 (1, 'Smells Like Teen Spirit'),
 (1, 'Sweet Child O Mine'),
 (3, 'Feeling Good'),
@@ -66,7 +66,7 @@ INSERT INTO musicfind.RepertorioBanda (idBanda, musica) VALUES
 (3, 'So What');
 
 -- Inserções na tabela Afiliado
-INSERT INTO musicfind.Afiliado (idMusico, idBanda) VALUES
+INSERT INTO musicfind.Afiliado (idUsuario, idBanda) VALUES
 (1, 1),
 (3, 3),
 (5, 1),

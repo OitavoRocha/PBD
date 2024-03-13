@@ -1,6 +1,8 @@
 package MusicFind.Interface;
 
 import java.awt.*;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 import javax.swing.*;
 
@@ -52,8 +54,7 @@ public class Login extends JFrame {
         leftPanel.setBackground(ColorPalette.EERIE_B.getColor());
         leftPanel.setPreferredSize(new Dimension(500, 800));
         
-        // TODO: Trocar imagem provisoria
-        logo = new ImagePanel("Images\\musicFindW.png");
+        logo = new ImagePanel("Images/musicFindW.png");
         
         leftPanel.add(Box.createRigidArea(new Dimension(0, 600)));
         leftPanel.add(logo);
@@ -150,9 +151,39 @@ public class Login extends JFrame {
     }
 
     private void checkLogin() {
-        // TODO: fazer as coisas do login - comparar username e senha com o banco de dados //  testar se o usuario é tipo musico ou user // criar a instância de usuario adequada
         usuario = new User();
+        String username = usernameField.getText();
+        String pass = passwordField.getText();
+        
+        ArrayList<String> userData = database.getUserDataFromUsername(username);
+        
+        
+        System.out.println(userData);
 
+        if (userData == null) {
+            JOptionPane.showMessageDialog(this, "Usuário não encontrado", "Erro", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        if (userData.get(4).equals(passwordField.getText())) {
+            usuario.setId(Integer.parseInt(userData.get(0)));
+            usuario.setContato(userData.get(1));
+            usuario.setRating(Float.parseFloat(userData.get(2)));
+            usuario.setUsername(userData.get(3));
+            usuario.setUserpassword(userData.get(4));
+            usuario.setTipo(userData.get(5));
+            if (usuario.getTipo().equals("Musico")) {
+                ArrayList<String> musicianData = database.getMusicoData(usuario.getId());
+                System.out.println(musicianData);
+                usuario.setGenero(musicianData.get(0));
+                usuario.setInstrumento(musicianData.get(1));
+                usuario.setAnos_experiencia(Integer.parseInt(musicianData.get(2)));
+                usuario.setCache(Float.parseFloat(musicianData.get(3)));
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Senha incorreta", "Erro", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
         dispose();
 
         Home home = new Home(database, usuario);

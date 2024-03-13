@@ -103,7 +103,7 @@ public class CreateEvent extends JFrame{
         header = new JPanel();
         header.setBackground(ColorPalette.EERIE_B.getColor());
         header.setPreferredSize(new Dimension(850, 70));
-        header.setBorder(BorderFactory.createEmptyBorder(10, 0, 0, 600));
+        header.setBorder(BorderFactory.createEmptyBorder(10, 40, 0, 600));
         
 
         title = new JLabel("Crie seu Evento");
@@ -281,11 +281,12 @@ public class CreateEvent extends JFrame{
         String local = locationField.getText();
         String data = dateField.getText();
         
-        database.insertEvent(name, capacidade, foco, "Em Andamento", data, local, usuario.getId());
+        database.insertEvent(name, capacidade, foco, "Confirmado", data, local, usuario.getId());
         
         // TODO: SELECT idEvento FROM Evento WHERE nome = name;
+
         dispose();
-        int idEvento = 0;
+        int idEvento = database.getEventoId(name);
         Event event = new Event(database, usuario, idEvento);
     }
     

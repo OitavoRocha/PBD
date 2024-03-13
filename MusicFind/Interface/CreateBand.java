@@ -97,7 +97,7 @@ public class CreateBand extends JFrame{
         header = new JPanel();
         header.setBackground(ColorPalette.EERIE_B.getColor());
         header.setPreferredSize(new Dimension(850, 70));
-        header.setBorder(BorderFactory.createEmptyBorder(10, 0, 0, 550));
+        header.setBorder(BorderFactory.createEmptyBorder(10, 40, 0, 550));
         
 
         title = new JLabel("Comece sua Banda");
@@ -120,7 +120,7 @@ public class CreateBand extends JFrame{
         namePanel.setLayout(new BoxLayout(namePanel, BoxLayout.Y_AXIS));
         namePanel.setBorder(BorderFactory.createEmptyBorder(30, 0, 90, 0));
 
-        nameLabel = new JLabel("Nome do Evento:");
+        nameLabel = new JLabel("Nome da Banda:");
         nameLabel.setFont(new Font("Arial", Font.PLAIN, 16));
         nameLabel.setForeground(ColorPalette.N_WHITE.getColor());
 
@@ -232,12 +232,11 @@ public class CreateBand extends JFrame{
         String genre = genreField.getText();
         Float cache = Float.parseFloat(cacheField.getText());
         
-        database.insertBand("ativo", genre, cache, 5.0f, name);
+        database.insertBand("Ativa", genre, cache, 5.0f, name);
         
         dispose();
         
-        // TODO: SELECT idBanda FROM Banda WHERE nome = name;
-        int idBanda = 0;
+        int idBanda = database.getBandaId(name);
         Band band = new Band(database, usuario, idBanda);
     }
 }

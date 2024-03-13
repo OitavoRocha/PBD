@@ -17,18 +17,24 @@ public class RepertoireAdd extends JFrame{
     private database database;
     private User usuario;
     private int idBanda;
+    private Home home;
+    private Band band;
     
-    public RepertoireAdd(int flag, database db, User user) {
+    public RepertoireAdd(database db, User user, Home h) {
         super("MusicFind");
         database = db;
         usuario = user;
+        flag = 1;
+        home = h;
         initComponents();
     }
 
-    public RepertoireAdd(int flag, database db, int id) {
+    public RepertoireAdd(database db, int id, Band b) {
         super("MusicFind");
         database = db;
         idBanda = id;
+        flag = 0;
+        band = b;
         initComponents();
     }
 
@@ -84,10 +90,11 @@ public class RepertoireAdd extends JFrame{
         String musica = musicName.getText();
         if (flag == 0) {
             database.insertRepertoireBanda(idBanda, musica);
+            band.updateRepertoire();
         } else {
             database.insertRepertoireMusico(usuario.getId(), musica);
+            home.updateRepertoire();
         }
-        
         dispose();
     }
     

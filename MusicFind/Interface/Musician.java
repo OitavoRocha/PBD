@@ -8,6 +8,7 @@ import MusicFind.src.*;
 
 
 import java.awt.*;
+import java.util.ArrayList;
 
 public class Musician extends JFrame {
     static JPanel leftBar;
@@ -31,10 +32,14 @@ public class Musician extends JFrame {
 
     private database database;
     private User usuario;
+    private int idMusician;
 
 
-    public Musician() {
+    public Musician(database db, User user, int id) {
         super("MusicFind");
+        database = db;
+        usuario = user;
+        idMusician = id;
         initComponents();
         setInfo();
     }
@@ -230,8 +235,20 @@ public class Musician extends JFrame {
 
     private void setInfo() {
         // TODO: pegar os valores do usuário logado
-
+        ArrayList<String> info = database.getMusicoData(idMusician);
+        info.addAll(database.getUserDataFromID(idMusician));
+        System.out.println(info);
+        profileLabel.setText(info.get(8));
+        profileInfo.setText("Contato: " + info.get(6));
+        ratingLabel.setText(info.get(7));
+        genreLabel.setText(info.get(0));
+        musicianInfo.setText("Instrumento: " + info.get(1) + "\nAnos de Experiência: " + info.get(2) + "\nCache: " + info.get(3));
+        updateRepertoire();
     }
-
+    //  0       1       2   3   4   5   6            7    8    9       10
+    // [Rock, Guitarra, 8, 200, 1, 1, 11111111111, 4.5, joao, senha123, Musico]
+    public void updateRepertoire() {
+        repertoireArea.setText(String.join("\n", database.getRepertoireMusico(idMusician)));
+    }
 }
 

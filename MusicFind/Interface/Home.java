@@ -7,6 +7,7 @@ import MusicFind.src.User;
 import MusicFind.src.database;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 public class Home extends JFrame {
     static JPanel leftBar;
@@ -206,6 +207,7 @@ public class Home extends JFrame {
         repertoireButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         repertoireButton.addActionListener(e -> {
             addRepertoire();
+            repertoireArea.setText(String.join("\n", database.getRepertoireMusico(usuario.getId())));
         });
 
         musicianPanel.add(musicianInfo);
@@ -245,12 +247,36 @@ public class Home extends JFrame {
 
 
     private void addRepertoire() {
-        RepertoireAdd repertoire = new RepertoireAdd(1, database, usuario);
+        RepertoireAdd repertoire = new RepertoireAdd(database, usuario, this);
     }
 
     private void setInfo() {
-        // TODO: pegar os valores do usuário logado
+        profileLabel.setText(usuario.getUsername());
+        profileInfo.setText("\nContato: " + usuario.getContato() + "\nTipo: " + usuario.getTipo());
+        ratingLabel.setText(String.valueOf(usuario.getRating()));
 
+        ArrayList<String> events = database.getEventsFromUser(usuario.getId());
+        if (events.size() == 0) {
+            eventsInfo.setText("Sem eventos");
+        } else {
+            eventsInfo.setText(String.join("\n", events));
+        }
+
+        if (usuario.getTipo().equals("Usuario")) {
+            createBandButton.setEnabled(false);
+            genreLabel.setVisible(false);
+            musicianPanel.setVisible(false);
+            return;
+        }
+
+        musicianInfo.setText("Instrumento: " + usuario.getInstrumento() + "\nAnos de experiência: " + usuario.getAnos_experiencia() + "\nCache: " + usuario.getCache());
+        repertoireArea.setText(String.join("\n", database.getRepertoireMusico(usuario.getId())));
+        genreLabel.setText(usuario.getGenero());
+    }
+
+
+    public void updateRepertoire() {
+        repertoireArea.setText(String.join("\n", database.getRepertoireMusico(usuario.getId())));
     }
 
 }

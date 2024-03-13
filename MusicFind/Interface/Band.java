@@ -6,6 +6,7 @@ import MusicFind.Interface.PreMade.ColorPalette;
 import MusicFind.src.*;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 public class Band extends JFrame{
     static JPanel leftBar;
@@ -220,7 +221,7 @@ public class Band extends JFrame{
     }
 
     private void addRepertoire() {
-        RepertoireAdd repertoire = new RepertoireAdd(0, database, usuario);
+        RepertoireAdd repertoire = new RepertoireAdd(database, idBanda, this);
     }
 
     private void home() {
@@ -244,6 +245,25 @@ public class Band extends JFrame{
     }
 
     private void setInfo() {
-        // TODO: setar as informações da banda com base no idBanda
+        ArrayList<String> bandData = database.getBandaData(idBanda);
+        ArrayList<Integer> affiliates = database.getAfiliadoBanda(idBanda);
+        System.out.println(bandData);
+        genreLabel.setText(bandData.get(1)); // genero
+        ratingLabel.setText(bandData.get(3)); // rating
+        profileLabel.setText(bandData.get(4)); // nome
+        updateRepertoire();
+        profileInfo.setText("Cache:" + bandData.get(2) + "\n" + "Status: " + bandData.get(0));
+
+        if( affiliates.contains(usuario.getId()) ) {
+            repertoireButton.setVisible(true);
+        } else {
+            repertoireButton.setVisible(false);
+        }
+
+        eventsInfo.setText(String.join("\n", database.getEventosFromBanda(idBanda)));
+    }
+
+    public void updateRepertoire() {
+        repertoireArea.setText(String.join("\n", database.getRepertoireBanda(idBanda)));
     }
 }

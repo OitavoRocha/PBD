@@ -7,6 +7,7 @@ import MusicFind.src.*;
 
 
 import java.awt.*;
+import java.util.ArrayList;
 
 public class Event extends JFrame {
     static JPanel leftBar;
@@ -205,6 +206,17 @@ public class Event extends JFrame {
     }
     
     private void setInfo() {
-        // TODO: setar com as informações do data base -- faz isso com base no idEvento
+        ArrayList<String> evento = database.getEventoData(idEvento);
+        System.out.println(evento);
+        profileLabel.setText(evento.get(0));
+        genreLabel.setText(evento.get(2));
+        info.setText("Capacidade: " + evento.get(1) + "\n" + "Data: " + evento.get(5) + "\n" + "Local: " + evento.get(6) + "\n" + "Status: " + evento.get(3));
+
+        ArrayList<String> participants = database.getNomeFromBandaOnEvent(idEvento);
+
+        System.out.println(participants);
+        participants.addAll(database.getNomeFromMusicoOnEvent(idEvento));
+
+        participantsInfo.setText(String.join("\n", participants));
     }
 }

@@ -131,4 +131,17 @@ public class User {
         this.cache = cache;
     }
 
+    public void printUser() {
+        System.out.println("ID: " + this.id);
+        System.out.println("Contato: " + this.contato);
+        System.out.println("Rating: " + this.rating);
+        System.out.println("Username: " + this.username);
+        System.out.println("Userpassword: " + this.userpassword);
+        System.out.println("Tipo: " + this.tipo);
+        System.out.println("Genero: " + this.genero);
+        System.out.println("Instrumento: " + this.instrumento);
+        System.out.println("Anos de experiência: " + this.anos_experiencia);
+        System.out.println("Cache: " + this.cache);
+    }
+
 }

@@ -1,11 +1,13 @@
 package MusicFind.Interface;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 
 import MusicFind.Interface.PreMade.ColorPalette;
 import MusicFind.src.*;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 public class SearchPage extends JFrame {
     static JPanel leftBar;
@@ -20,8 +22,6 @@ public class SearchPage extends JFrame {
     static JRadioButton searchByMusician;
     static JPanel searchPanel;
     static JTextField searchField;
-    static JPanel resultsPanel;
-    static JTable resultsTable;
     static JPanel footer;
     static JButton goToButton;
 
@@ -93,7 +93,6 @@ public class SearchPage extends JFrame {
         header.setBackground(ColorPalette.EERIE_B.getColor());
         header.setSize(new Dimension(850, 100));
         header.setLayout(new FlowLayout(FlowLayout.LEFT, 100, 0));
-        header.setBorder(BorderFactory.createEmptyBorder(10, 0, 0, 150));
 
         searchByBand = new JRadioButton("Band");
         searchByBand.setSelected(false);
@@ -102,7 +101,6 @@ public class SearchPage extends JFrame {
         searchByBand.addActionListener(e -> {
             searchByEvent.setSelected(false);
             searchByMusician.setSelected(false);
-            //SELECT FROM BANDA
         });
 
         searchByEvent = new JRadioButton("Event");
@@ -142,20 +140,6 @@ public class SearchPage extends JFrame {
     
         searchPanel.add(searchField);
 
-        resultsPanel = new JPanel();
-        resultsPanel.setBackground(ColorPalette.EERIE_B.getColor());
-        resultsPanel.setSize(new Dimension(850, 600));
-        resultsPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
-        resultsPanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 10, 0));
-
-        resultsTable = new JTable();
-        resultsTable.setBackground(ColorPalette.JET.getColor());
-        resultsTable.setForeground(ColorPalette.N_WHITE.getColor());
-        resultsTable.setPreferredSize(new Dimension(800, 550));
-        resultsTable.setAlignmentX(Component.CENTER_ALIGNMENT);
-
-        resultsPanel.add(resultsTable);
-
         footer = new JPanel();
         footer.setBackground(ColorPalette.BYAZNTINE_BLUE.getColor());
         footer.setSize(new Dimension(850, 100));
@@ -174,7 +158,6 @@ public class SearchPage extends JFrame {
 
         mainPanel.add(header);
         mainPanel.add(searchPanel);
-        mainPanel.add(resultsPanel);
         mainPanel.add(footer);
 
         getContentPane().add(leftBar, BorderLayout.WEST);
@@ -191,7 +174,41 @@ public class SearchPage extends JFrame {
 
     private void goTo() {
         // TODO: pegar o valor da tabela para ir até a página do evento/banda/músico
-        
+        String search = searchField.getText();
+
+        if (searchByBand.isSelected()) {
+            //SELECT FROM BANDA
+            int idBand = database.getBandaId(search);
+            if (idBand == 0) {
+                JOptionPane.showMessageDialog(null, "Nenhuma banda encontrada");
+            } else {
+                dispose();
+                Band band = new Band(database, usuario, idBand);
+            }
+        } else if (searchByEvent.isSelected()) {
+            int idEvent = database.getEventoId(search);
+            if (idEvent == 0) {
+                JOptionPane.showMessageDialog(null, "Nenhum evento encontrada");
+            } else {
+                dispose();
+                Event event = new Event(database, usuario, idEvent);
+            }
+        } else if (searchByMusician.isSelected()) {
+            int idMusician = database.getUserId(search);
+            if (idMusician == 0) {
+                JOptionPane.showMessageDialog(null, "Nenhum artista encontrada");
+            } else {
+                dispose();
+                if (idMusician == usuario.id) {
+                    Home home = new Home(database, usuario);
+                } else{
+                    Musician musician = new Musician(database, usuario, idMusician);
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Selecione uma opção de busca");
+        }
+
     }
 
     private void createBand() {
